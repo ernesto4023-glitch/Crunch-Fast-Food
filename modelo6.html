@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Burger Xpress | Comida Rápida</title>
+  <meta name="description" content="Hamburguesas, combos, papas y comida rápida a domicilio. Pide fácil por WhatsApp." />
+
+</head>
+<body>
+
+    <style>
+        :root {
+  --red: #e83223;
+  --yellow: #ffc400;
+  --dark: #050505;
+  --black: #000;
+  --white: #fff;
+  --gray: #b8b8b8;
+  --card: #151515;
+  --radius: 20px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: Arial, sans-serif;
+  background: var(--black);
+  color: var(--white);
+  line-height: 1.5;
+}
+
+img {
+  width: 100%;
+  display: block;
+}
+
+.container {
+  width: 90%;
+  max-width: 1180px;
+  margin: auto;
+}
+
+.header {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  z-index: 100;
+}
+
+.navbar {
+  height: 90px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--white);
+  text-decoration: none;
+  font-size: 1.8rem;
+  font-weight: 900;
+  line-height: .9;
+}
+
+.logo span {
+  color: var(--yellow);
+  display: block;
+}
+
+.nav-menu {
+  display: flex;
+  list-style: none;
+  gap: 30px;
+}
+
+.nav-menu a {
+  color: var(--white);
+  text-decoration: none;
+  font-weight: 900;
+  text-transform: uppercase;
+  font-size: .9rem;
+}
+
+.nav-menu a:hover {
+  color: var(--yellow);
+}
+
+.nav-btn {
+  background: var(--red);
+  color: var(--white);
+  padding: 14px 22px;
+  border-radius: 999px;
+  text-decoration: none;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.menu-toggle {
+  display: none;
+  background: none;
+  color: var(--white);
+  border: none;
+  font-size: 2rem;
+}
+
+.hero {
+  min-height: 90vh;
+  padding-top: 100px;
+  display: flex;
+  align-items: center;
+  background:
+    radial-gradient(circle at 70% 40%, rgba(232,50,35,.25), transparent 35%),
+    linear-gradient(90deg, #050505 0%, #050505 45%, #111 100%);
+}
+
+.hero-grid {
+  display: grid;
+  grid-template-columns: .9fr 1.1fr;
+  align-items: center;
+  gap: 40px;
+}
+
+.hero h1 {
+  font-size: clamp(3rem, 8vw, 5rem);
+  text-transform: uppercase;
+  line-height: .95;
+  font-weight: 900;
+  letter-spacing: 2px;
+}
+
+.hero h2 {
+  color: var(--yellow);
+  font-size: clamp(1.7rem, 4vw, 3rem);
+  margin: 15px 0;
+  font-style: italic;
+}
+
+.hero h2 span {
+  color: var(--white);
+  background: var(--red);
+  padding: 4px 14px;
+  display: inline-block;
+  transform: rotate(-2deg);
+}
+
+.hero p {
+  max-width: 420px;
+  color: #ddd;
+  margin: 25px 0;
+  font-size: 1.05rem;
+}
+
+.hero-buttons {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.btn {
+  display: inline-block;
+  padding: 15px 28px;
+  border-radius: 999px;
+  text-decoration: none;
+  font-weight: 900;
+  text-transform: uppercase;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-yellow {
+  background: var(--yellow);
+  color: #111;
+}
+
+.btn-red {
+  background: var(--red);
+  color: var(--white);
+}
+
+.btn-outline {
+  border: 2px solid var(--white);
+  color: var(--white);
+}
+
+.btn-outline-yellow {
+  border: 2px solid var(--yellow);
+  color: var(--yellow);
+}
+
+.hero-image img {
+    position: relative;
+    bottom: 50px;
+  filter: drop-shadow(0 20px 40px rgba(0,0,0,.6));
+}
+
+.features {
+  background: var(--white);
+  color: #111;
+  padding: 40px 0;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 25px;
+}
+
+.feature {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  border-right: 1px solid #ddd;
+}
+
+.feature:last-child {
+  border-right: none;
+}
+
+.feature-icon {
+  min-width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  color: var(--white);
+  font-size: 1.4rem;
+}
+
+.feature-icon.red { background: var(--red); }
+.feature-icon.yellow { background: var(--yellow); color: #111; }
+
+.feature h3 {
+  text-transform: uppercase;
+  font-size: 1rem;
+}
+
+.feature p {
+  color: #555;
+  font-size: .9rem;
+}
+
+.combos {
+  padding: 80px 0;
+  background: #070707;
+}
+
+.combos-grid {
+  display: grid;
+  grid-template-columns: .9fr repeat(3, 1fr);
+  gap: 28px;
+  align-items: center;
+}
+
+.combo-title span,
+.about-text span {
+  color: var(--yellow);
+  font-size: 1.6rem;
+  font-style: italic;
+}
+
+.combo-title h2,
+.about-text h2,
+.top-products h2 {
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  text-transform: uppercase;
+  line-height: .95;
+  margin: 10px 0;
+}
+
+.combo-title p {
+  color: #ccc;
+  margin-bottom: 25px;
+}
+
+.combo-card {
+  background: linear-gradient(180deg, #222, #111);
+  border-radius: var(--radius);
+  padding: 20px;
+  position: relative;
+  box-shadow: 0 20px 50px rgba(0,0,0,.35);
+}
+
+.combo-card .badge {
+  position: absolute;
+  top: -12px;
+  left: 20px;
+  background: var(--yellow);
+  color: #111;
+  padding: 7px 14px;
+  border-radius: 999px;
+  font-weight: 900;
+  text-transform: uppercase;
+  font-size: .75rem;
+}
+
+.combo-card img {
+  height: 180px;
+  object-fit: contain;
+}
+
+.combo-card h3 {
+  text-transform: uppercase;
+  margin-top: 15px;
+}
+
+.combo-card p {
+  color: #bbb;
+  font-size: .9rem;
+}
+
+.price {
+  color: var(--yellow);
+  font-size: 1.8rem;
+  font-weight: 900;
+  margin-top: 12px;
+}
+
+.combo-card button {
+  position: absolute;
+  right: 20px;
+  bottom: 20px;
+  background: var(--red);
+  color: var(--white);
+  border: none;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  font-size: 1.6rem;
+  cursor: pointer;
+}
+
+.delivery-banner {
+  background: var(--red);
+  padding: 45px 0;
+}
+
+.delivery-grid {
+  display: grid;
+  grid-template-columns: 1.2fr auto .6fr;
+  align-items: center;
+  gap: 35px;
+}
+
+.delivery-grid h2 {
+  font-size: 2.3rem;
+  text-transform: uppercase;
+}
+
+.delivery-grid h2 span {
+  color: var(--yellow);
+  display: block;
+}
+
+.delivery-grid img {
+  max-height: 170px;
+  object-fit: contain;
+}
+
+.about {
+  padding: 70px 0;
+  background: #080808;
+}
+
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1.3fr;
+  gap: 35px;
+  align-items: center;
+  
+}
+
+.about-grid img{
+    border-radius: 10px;
+}
+
+.about-text p {
+  color: #ccc;
+  margin-bottom: 25px;
+}
+
+.top-products h2 {
+  font-size: 2.4rem;
+}
+
+.products {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+  margin-top: 25px;
+}
+
+.products div {
+  text-align: center;
+}
+
+.products img {
+  height: 90px;
+  object-fit: contain;
+  border: 2px solid var(--yellow);
+  border-radius: 50%;
+  padding: 10px;
+}
+
+.products h4 {
+  text-transform: uppercase;
+  margin-top: 10px;
+}
+
+.products p {
+  color: var(--yellow);
+  font-weight: 900;
+}
+
+.footer {
+  background: #050505;
+  border-top: 1px solid #222;
+  padding-top: 55px;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr 1fr 1.3fr;
+  gap: 35px;
+}
+
+.footer h4 {
+  color: var(--yellow);
+  text-transform: uppercase;
+  margin-bottom: 15px;
+}
+
+.footer a {
+  display: block;
+  color: #ccc;
+  text-decoration: none;
+  margin-bottom: 7px;
+}
+
+.footer p {
+  color: #ccc;
+  margin-bottom: 8px;
+}
+
+.footer-logo {
+  margin-bottom: 15px;
+}
+
+.socials {
+  display: flex;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.socials a {
+  width: 36px;
+  height: 36px;
+  border: 1px solid var(--white);
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+}
+
+.footer-bottom {
+  text-align: center;
+  border-top: 1px solid #222;
+  margin-top: 40px;
+  padding: 20px;
+}
+
+@media (max-width: 950px) {
+  .hero-grid,
+  .combos-grid,
+  .delivery-grid,
+  .about-grid,
+  .footer-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .features-grid,
+  .products {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .feature {
+    border-right: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .header {
+    position: fixed;
+    background: #050505;
+  }
+
+  .menu-toggle {
+    display: block;
+  }
+
+  .nav-btn {
+    display: none;
+  }
+
+  .nav-menu {
+    position: absolute;
+    top: 90px;
+    left: 0;
+    width: 100%;
+    background: #050505;
+    flex-direction: column;
+    align-items: center;
+    padding: 25px 0;
+    display: none;
+  }
+
+  .nav-menu.active {
+    display: flex;
+  }
+
+  .features-grid,
+  .products {
+    grid-template-columns: 1fr;
+  }
+
+  .hero {
+    text-align: center;
+  }
+
+  .hero p,
+  .hero-buttons {
+    margin-left: auto;
+    margin-right: auto;
+    justify-content: center;
+  }
+}
+    </style>
+
+<header class="header">
+  <nav class="navbar container">
+    <a href="#inicio" class="logo">
+      🍔 <div>BURGER <span>XPRESS</span></div>
+    </a>
+
+    <button class="menu-toggle" id="menuToggle">☰</button>
+
+    <ul class="nav-menu" id="navMenu">
+      <li><a href="#inicio">Inicio</a></li>
+      <li><a href="#menu">Menú</a></li>
+      <li><a href="#combos">Combos</a></li>
+      <li><a href="#nosotros">Nosotros</a></li>
+      <li><a href="#ubicacion">Ubicaciones</a></li>
+      <li><a href="#contacto">Contacto</a></li>
+    </ul>
+
+    <a class="nav-btn" href="https://wa.me/573001234567" target="_blank">
+      Pedir ahora
+    </a>
+  </nav>
+</header>
+
+<main>
+
+<section class="hero" id="inicio">
+  <div class="container hero-grid">
+    <div class="hero-text">
+      <h1>Sabor que <br> te acelera</h1>
+      <h2>Rápido, delicioso y <span>hecho para ti.</span></h2>
+      <p>
+        Disfruta nuestras hamburguesas, papas y combos preparados al momento
+        con ingredientes frescos y de calidad.
+      </p>
+
+      <div class="hero-buttons">
+        <a href="#menu" class="btn btn-yellow">Ver menú</a>
+        <a href="https://wa.me/573001234567" class="btn btn-outline" target="_blank">
+          Pedir a domicilio
+        </a>
+      </div>
+    </div>
+
+    <div class="hero-image">
+      <img src="img/hamburguesa.webp" alt="Hamburguesa grande con papas">
+    </div>
+  </div>
+</section>
+
+<section class="features">
+  <div class="container features-grid">
+    <div class="feature">
+      <div class="feature-icon red">🍔</div>
+      <div>
+        <h3>Ingredientes frescos</h3>
+        <p>Seleccionamos lo mejor para cada preparación.</p>
+      </div>
+    </div>
+
+    <div class="feature">
+      <div class="feature-icon yellow">🔥</div>
+      <div>
+        <h3>Preparado al momento</h3>
+        <p>Cocina rápida con el sabor que te encanta.</p>
+      </div>
+    </div>
+
+    <div class="feature">
+      <div class="feature-icon red">🛵</div>
+      <div>
+        <h3>Envío rápido</h3>
+        <p>Llevamos tu pedido caliente hasta tu casa.</p>
+      </div>
+    </div>
+
+    <div class="feature">
+      <div class="feature-icon yellow">😊</div>
+      <div>
+        <h3>Satisfacción garantizada</h3>
+        <p>Tu experiencia es nuestra prioridad.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="combos" id="combos">
+  <div class="container combos-grid">
+    <div class="combo-title">
+      <span>Elige tu favorito</span>
+      <h2>Nuestros combos</h2>
+      <p>Combos irresistibles al mejor precio. Incluyen papas y bebida.</p>
+      <a href="#menu" class="btn btn-red">Ver menú completo</a>
+    </div>
+
+    <div class="combo-card">
+      <span class="badge">Más pedido</span>
+      <img src="img/combo1.webp" alt="Combo clásico">
+      <h3>Combo clásico</h3>
+      <p>Hamburguesa clásica + Papas + Bebida</p>
+      <div class="price">$24.900</div>
+      <button>+</button>
+    </div>
+
+    <div class="combo-card">
+      <img src="/img/combo2.webp" alt="Combo doble">
+      <h3>Combo doble</h3>
+      <p>Hamburguesa doble + Papas + Bebida</p>
+      <div class="price">$32.900</div>
+      <button>+</button>
+    </div>
+
+    <div class="combo-card">
+      <img src="img/combo3.webp" alt="Combo pollo crispy">
+      <h3>Combo pollo crispy</h3>
+      <p>Pollo crispy + Papas + Bebida</p>
+      <div class="price">$26.900</div>
+      <button>+</button>
+    </div>
+  </div>
+</section>
+
+<section class="delivery-banner">
+  <div class="container delivery-grid">
+    <div>
+      <h2>¿Tienes hambre? <span>¡Nosotros llevamos!</span></h2>
+      <p>Pide ahora y recibe tu pedido en tiempo récord.</p>
+    </div>
+
+    <a href="https://wa.me/573001234567" class="btn btn-yellow" target="_blank">
+      Pedir a domicilio →
+    </a>
+
+    <img src="img/delivery.png" alt="Repartidor en moto">
+  </div>
+</section>
+
+<section class="about" id="nosotros">
+  <div class="container about-grid">
+    <div class="about-text">
+      <span>¿Quiénes somos?</span>
+      <h2>Hechos con pasión</h2>
+      <p>
+        Somos amantes de la comida rápida y nuestro objetivo es simple:
+        ofrecerte sabores increíbles, servicio rápido y la mejor calidad siempre.
+      </p>
+      <a href="#contacto" class="btn btn-outline-yellow">Conócenos más</a>
+    </div>
+
+    <img src="img/icono.webp" alt="Hamburguesa deliciosa">
+
+    <div class="top-products" id="menu">
+      <h2>Los más pedidos</h2>
+
+      <div class="products">
+        <div>
+          <img src="img/papas-fritas.webp" alt="Papas fritas">
+          <h4>Papas fritas</h4>
+          <p>$6.900</p>
+        </div>
+
+        <div>
+          <img src="img/aros-de-cebolla.webp" alt="Aros de cebolla">
+          <h4>Aros de cebolla</h4>
+          <p>$7.900</p>
+        </div>
+
+        <div>
+          <img src="img/nuggets.webp" alt="Nuggets">
+          <h4>Nuggets 6 und</h4>
+          <p>$8.900</p>
+        </div>
+
+        <div>
+          <img src="img/malteada.webp" alt="Malteada">
+          <h4>Malteada</h4>
+          <p>$9.900</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="footer" id="contacto">
+  <div class="container footer-grid">
+    <div>
+      <a href="#inicio" class="logo footer-logo">
+        🍔 <div>BURGER <span>XPRESS</span></div>
+      </a>
+      <p>Rápido, delicioso y hecho para ti.</p>
+      <div class="socials">
+        <a href="#">f</a>
+        <a href="#">ig</a>
+        <a href="#">tk</a>
+      </div>
+    </div>
+
+    <div>
+      <h4>Enlaces rápidos</h4>
+      <a href="#inicio">Inicio</a>
+      <a href="#menu">Menú</a>
+      <a href="#combos">Combos</a>
+      <a href="#nosotros">Nosotros</a>
+      <a href="#contacto">Contacto</a>
+    </div>
+
+    <div>
+      <h4>Información</h4>
+      <a href="#">Políticas de privacidad</a>
+      <a href="#">Términos y condiciones</a>
+      <a href="#">Preguntas frecuentes</a>
+    </div>
+
+    <div id="ubicacion">
+      <h4>Contáctanos</h4>
+      <p>📞 +57 300 123 4567</p>
+      <p>✉ info@burgerxpress.com</p>
+      <p>📍 Cra 45 #22-10, Cali, Colombia</p>
+      <p>🕒 Lun - Dom: 11:00 a.m. - 11:00 p.m.</p>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <p>© 2026 Burger Xpress. Todos los derechos reservados.</p>
+  </div>
+</footer>
+
+<script>
+    const menuToggle = document.getElementById("menuToggle");
+const navMenu = document.getElementById("navMenu");
+
+menuToggle.addEventListener("click", () => {
+  navMenu.classList.toggle("active");
+});
+
+document.querySelectorAll(".nav-menu a").forEach(link => {
+  link.addEventListener("click", () => {
+    navMenu.classList.remove("active");
+  });
+});
+</script>
+</body>
+</html>
