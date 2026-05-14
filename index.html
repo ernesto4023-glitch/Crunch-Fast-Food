@@ -989,7 +989,7 @@
         <a href="#contacto">Contacto</a>
       </nav>
 
-      <a class="btn btn-primary" href="https://wa.me/573001234567?text=Hola,%20quiero%20información%20sobre%20una%20página%20web" target="_blank">💬 Escríbeme</a>
+      <a class="btn btn-primary" href="https://wa.me/573233404121?text=Hola,%20quiero%20información%20sobre%20una%20página%20web" target="_blank">💬 Escríbeme</a>
       <div class="menu-toggle" id="menuToggle">☰</div>
     </div>
 
@@ -1127,7 +1127,7 @@
               </div>
 
               <div class="plan-actions">
-                <a href="https://wa.me/573001234567?text=Hola,%20quiero%20una%20página%20básica" target="_blank" class="btn btn-primary">Quiero este plan</a>
+                <a href="https://wa.me/573233404121?text=Hola,%20quiero%20una%20página%20básica" target="_blank" class="btn btn-primary">Quiero este plan</a>
                 <a href="#portafolio" class="btn btn-outline">Ver muestras</a>
               </div>
             </div>
@@ -1148,6 +1148,7 @@
                 <li>Formulario de contacto</li>
                 <li>Testimonios, beneficios o preguntas frecuentes</li>
                 <li>SEO básico y mejor estructura visual</li>
+                <li>Hosting y Dominio </li>
               </ul>
 
               <div class="plan-links">
@@ -1158,7 +1159,7 @@
               </div>
 
               <div class="plan-actions">
-                <a href="https://wa.me/573001234567?text=Hola,%20quiero%20una%20página%20interactiva" target="_blank" class="btn btn-primary">Quiero este plan</a>
+                <a href="https://wa.me/573233404121?text=Hola,%20quiero%20una%20página%20interactiva" target="_blank" class="btn btn-primary">Quiero este plan</a>
                 <a href="#portafolio" class="btn btn-outline">Ver muestras</a>
               </div>
             </div>
@@ -1192,7 +1193,7 @@
             </div>
             <div class="project-body">
               <h3>Sonrie</h3>
-              <a href="modelo43.html" target="_blank">Enlace de demostracion →</a>
+              <a href="modelo3.html" target="_blank">Enlace de demostracion →</a>
             </div>
           </article>
 
@@ -1255,6 +1256,16 @@
               <a href="modelo8.html" target="_blank">Colocar enlace de demo →</a>
             </div>
           </article>
+
+          <article class="project-card">
+            <div class="project-preview" style="background-image:url('img/inmuebles.webp')">
+              <span class="project-tag">Plan Cásico</span>
+            </div>
+            <div class="project-body">
+              <h3>Inmobiliaria</h3>
+              <a href="modelo5.html" target="_blank">Colocar enlace de demo →</a>
+            </div>
+          </article>
         </div>
       </div>
     </section>
@@ -1299,7 +1310,7 @@
             <h2>¿Listo para mostrar tu negocio en internet?</h2>
             <p>Escríbeme por WhatsApp y te muestro ejemplos para elegir el estilo de tu página.</p>
           </div>
-          <a href="https://wa.me/573001234567?text=Hola,%20quiero%20información%20sobre%20una%20página%20web" target="_blank" class="btn">💬 Escríbeme por WhatsApp</a>
+          <a href="https://wa.me/573233404121?text=Hola,%20quiero%20información%20sobre%20una%20página%20web" target="_blank" class="btn">💬 Escríbeme por WhatsApp</a>
         </div>
       </div>
     </section>
@@ -1347,14 +1358,14 @@
         <p>✉️ contacto@tuweb.com</p>
         <p>📍 Colombia</p>
         <br>
-        <a href="https://wa.me/573001234567?text=Hola,%20quiero%20información%20sobre%20una%20página%20web" target="_blank" class="btn btn-primary">Escríbeme</a>
+        <a href="https://wa.me/573233404121?text=Hola,%20quiero%20información%20sobre%20una%20página%20web" target="_blank" class="btn btn-primary">Escríbeme</a>
       </div>
     </div>
 
     <p class="copy">© 2026 TUWEB Desarrollo Web. Todos los derechos reservados.</p>
   </footer>
 
-  <a href="https://wa.me/573001234567?text=Hola,%20quiero%20información%20sobre%20una%20página%20web" target="_blank" class="whatsapp-float">💬</a>
+  <a href="https://wa.me/573233404121?text=Hola,%20quiero%20información%20sobre%20una%20página%20web" target="_blank" class="whatsapp-float">💬</a>
 
   <script>
     const menuToggle = document.getElementById("menuToggle");
@@ -1372,5 +1383,65 @@
       });
     });
   </script>
+
+  <script type="module">
+
+import { db } from "./firebase-config.js";
+
+import {
+  ref,
+  get,
+  set,
+  update
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+
+const today = new Date().toISOString().split("T")[0];
+
+const localKey = `visit-${today}`;
+
+async function registerVisit() {
+
+  // evita múltiples visitas el mismo día
+  if(localStorage.getItem(localKey)) {
+    return;
+  }
+
+  const visitRef = ref(db, `visits/${today}`);
+
+  try {
+
+    const snapshot = await get(visitRef);
+
+    if(snapshot.exists()) {
+
+      const currentData = snapshot.val();
+
+      await update(visitRef, {
+        count: currentData.count + 1
+      });
+
+    } else {
+
+      await set(visitRef, {
+        date: today,
+        count: 1
+      });
+    }
+
+    localStorage.setItem(localKey, "true");
+
+    console.log("✅ Visita registrada");
+
+  } catch(error) {
+
+    console.error("❌ Error Firebase:", error);
+  }
+}
+
+registerVisit();
+
+</script>
+
+  
 </body>
 </html>
